@@ -79,7 +79,7 @@
     if (![self objectAtIndex:index]) {
       //      NSLog(@"Load page at index: %d", index);
       id page = createBlock(index);
-      NSAssert(page != nil, @"nil page for index %d", index);
+      NSAssert(page != nil, @"nil page for index %lu", (unsigned long)index);
       [self setObject:page atIndex:index];
     }
   }

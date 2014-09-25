@@ -63,7 +63,7 @@
 }
 
 - (void)setObject:(id)object atIndex:(NSUInteger)index {
-  [cached setObject:object forKey:[NSString stringWithFormat:@"%u", index]];
+  [cached setObject:object forKey:[NSString stringWithFormat:@"%lu", (unsigned long)index]];
   if (!norecycle && recycleBlock) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //    dispatch_sync(dispatch_get_main_queue(), ^{
       [self recycle];
@@ -72,7 +72,7 @@
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
-  return [cached objectForKey:[NSString stringWithFormat:@"%u", index]];
+  return [cached objectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)index]];
 }
 
 - (id)dequeueReusableObjectWithIdentifier:(NSString *)identifier {
@@ -99,7 +99,7 @@
   
   norecycle = FALSE;
   
-  __block int _left = [cached count] - size;
+  __block NSInteger _left = [cached count] - size;
   if (_left <= 0) return;
   
   NSMutableSet *set = [NSMutableSet set];
@@ -118,7 +118,7 @@
     [self recycleObject:oki[0] key:oki[1] identifier:oki[2]];
   }];
   
-  NSAssert([cached count] <= size, @"after recycle the number of cached object %d should be less or equal to the cache size %d", [cached count], size);
+  NSAssert([cached count] <= size, @"after recycle the number of cached object %lu should be less or equal to the cache size %lu", (unsigned long)[cached count], (unsigned long)size);
 }
 
 - (void)recycleObject:(id)obj key:(id)key identifier:(NSString *)identifier {

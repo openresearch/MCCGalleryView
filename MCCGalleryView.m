@@ -37,6 +37,10 @@
 
 //#define DEBUG_MCCGalleryView
 
+NS_INLINE NSRange visiblePagesRangeInScrollview(UIScrollView *scrollview, NSInteger pagewidth, NSUInteger pagescount) __attribute__((unused));
+NS_INLINE NSUInteger maxVisiblePagesInFrame(CGRect frame, NSUInteger pagesize) __attribute__((unused));
+
+
 @interface MCCGalleryView ()
 @property (retain, nonatomic) MCCActiveRangeCache *_cache;
 @property (assign, nonatomic) NSRange _visiblePagesRange;
